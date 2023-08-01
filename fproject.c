@@ -1,0 +1,120 @@
+char i=0;
+char j=0;
+void main() {
+ADCON1=0x07;
+trisb=0x00;
+trise=0x00;
+trisc=0x00;
+trisa=0xff;
+trisd=0x00;
+while(1)
+{
+/*********************manual**************************/
+while (porta.b0==0){
+         porte=0x00;
+         portc=0x00;
+while(porta.b1==1)
+{
+         porte.b0=1;
+         portc.b7=1;
+         if(porta.B0==1)
+             break;
+
+} 
+while(porta.B2==1)
+{
+        portc.B5=0;
+        porte.b2=0;
+        porte.B0=0;
+        portc.B7=0;
+        porte.B1=1;
+        portc.b6=1;
+        delay_ms(3000);
+        if(porta.B0==1)
+               break;
+            }
+while(porta.B3==1)
+   {
+        porte.B1=0 ;
+        portc.b6=0;
+        portc.b5=1;
+        porte.b2=1;
+        if(porta.B0==1)
+            break;
+   }
+}
+/*************************Automatic***************/
+while (porta.B0==1){
+         portc=0xff;
+         j=2;
+         i=3;
+         porte.B2=0;
+         porte.B0=0;
+         portc.b5=1;
+         portc.B6=0;
+         portc.b7=0;
+
+for(j;j>=0;j--)
+{  
+         portb=j;
+for(i;i>-1;i--)
+{
+         if(porta.B0==0)
+             break;
+         if(i==3&&j==2)
+             porte.b1=1;
+         if(j==2&&i==0)
+           {
+             porte.b1=0;
+             porte.b2=1;
+           }
+         portd=i;
+         delay_ms(1000);
+         if(i==0)
+             break;
+}
+         if(i==0)
+             i=9;
+         if(j==0)
+             break;
+         if(porta.B0==0)
+             break;
+}
+         if(porta.B0==0)
+             break;
+         porte.B0=1;
+         portc.b5=0;
+         porte.b2=0;
+         portc.b6=1;
+         j=1;
+         i=5;
+for(j;j>=0;j--)
+{
+         portb=j;
+ for(i;i>=0;i--)
+{          
+         if(porta.B0==0)
+              break;
+         if(i==2&&j==1)
+         {
+              portc.b6=0;
+              portc.b7=1;
+          }
+          portd=i;
+          delay_ms(1000);
+          if(i==0)
+          {
+              i=9;
+              break;
+           }
+}
+         if(porta.B0==0)
+              break;
+         if(j==0)
+              break;
+}
+         if(porta.B0==0)
+              break;
+} 
+}
+}
